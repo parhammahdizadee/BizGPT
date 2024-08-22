@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+from markdownify import MarkdownConverter
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import time
@@ -26,6 +26,8 @@ def fetch_page(page_number):
 
 
 def extract_data(page_source):
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(page_source, 'html.parser')
     data_list = []
 
