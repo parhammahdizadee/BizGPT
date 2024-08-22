@@ -1,0 +1,5 @@
+fastapi
+requests
+markdownify
+bs4
+selenium
