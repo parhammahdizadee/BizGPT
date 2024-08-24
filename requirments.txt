@@ -3,3 +3,6 @@ requests
 markdownify
 bs4
 selenium
+sentence_transformers
+markdown
+psycopg2
