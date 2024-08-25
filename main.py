@@ -18,6 +18,7 @@ async def search(sentence: SentenceSerializer):
 
     encoded_sentence = model.encode(sentence)
 
+    # TODO: complete the logic of search
     # finding closest to sentence that was given as input logic
     query = QueryBuilder()
     query.select()
