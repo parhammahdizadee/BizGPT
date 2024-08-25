@@ -63,34 +63,3 @@ class QueryBuilder:
         self.db.close_cursor_connection(cursor)
 
         return result
-
-    def update(self, update: list, condition: DBCondition):
-        cursor = self.db.db_connection.cursor()
-        query = "UPDATE {table} SET {update} WHERE {condition};". \
-            format(table=self.table_name,
-                   update=",".join(update),
-                   condition=condition)
-        try:
-            cursor.execute(query)
-            self.logger.info(InfoMessage.DB_QUERY)
-            self.logger.info(cursor.query)
-            self.db.db_connection.commit()
-        except psycopg2.Error as error:
-            self.logger.error(ErrorMessage.DB_INSERT)
-            self.logger.error(error)
-            raise error
-        self.db.close_cursor_connection(cursor)
-        self.db.return_connection_to_pool(self.db.db_connection)
-
-
-if __name__ == '__main__':
-    a = QueryBuilder("embeddings")
-
-    cd1 = DBCondition(EmbeddingModels.id, SqlOperator.EQL, "173")
-    cd1.build_condition()
-    cd3 = DBCondition(EmbeddingModels.title, SqlOperator.EQL, "ref")
-    cd3.build_condition()
-    cd2 = DBCondition(EmbeddingModels.embedding, SqlOperator.EQL, "16")
-    cd2.build_condition()
-
-    a.update(update=[cd1.condition, cd3.condition], condition=cd2.condition)
